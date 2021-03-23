@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 const fs = require('fs');
-const location = process.env.SQLITE_DB_LOCATION || '/etc/todos/todo.db';
+const location = process.env.SQLITE_DB_LOCATION || 'todo.db';
 
 let db, dbAll, dbRun;
 
@@ -70,8 +70,7 @@ async function getItem(id) {
 async function storeItem(item) {
     return new Promise((acc, rej) => {
         db.run(
-            'INSERT INTO todo_items (id, name, completed) VALUES (?, ?, ?)',
-            [item.id, item.name, item.completed ? 1 : 0],
+            'INSERT INTO todo_items (id, name, completed) VALUES (?, ?, ?)', [item.id, item.name, item.completed ? 1 : 0],
             err => {
                 if (err) return rej(err);
                 acc();
@@ -83,15 +82,14 @@ async function storeItem(item) {
 async function updateItem(id, item) {
     return new Promise((acc, rej) => {
         db.run(
-            'UPDATE todo_items SET name=?, completed=? WHERE id = ?',
-            [item.name, item.completed ? 1 : 0, id],
+            'UPDATE todo_items SET name=?, completed=? WHERE id = ?', [item.name, item.completed ? 1 : 0, id],
             err => {
                 if (err) return rej(err);
                 acc();
             },
         );
     });
-} 
+}
 
 async function removeItem(id) {
     return new Promise((acc, rej) => {

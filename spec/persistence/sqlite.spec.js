@@ -8,16 +8,16 @@ const ITEM = {
 };
 
 beforeEach(() => {
-    if (fs.existsSync('/etc/todos/todo.db')) {
-        fs.unlinkSync('/etc/todos/todo.db');
+    if (fs.existsSync('todo.db')) {
+        fs.unlinkSync('todo.db');
     }
 });
 
-test('it initializes correctly', async () => {
+test('it initializes correctly', async() => {
     await db.init();
 });
 
-test('it can store and retrieve items', async () => {
+test('it can store and retrieve items', async() => {
     await db.init();
 
     await db.storeItem(ITEM);
@@ -27,7 +27,7 @@ test('it can store and retrieve items', async () => {
     expect(items[0]).toEqual(ITEM);
 });
 
-test('it can update an existing item', async () => {
+test('it can update an existing item', async() => {
     await db.init();
 
     const initialItems = await db.getItems();
@@ -45,7 +45,7 @@ test('it can update an existing item', async () => {
     expect(items[0].completed).toBe(!ITEM.completed);
 });
 
-test('it can remove an existing item', async () => {
+test('it can remove an existing item', async() => {
     await db.init();
     await db.storeItem(ITEM);
 
@@ -55,7 +55,7 @@ test('it can remove an existing item', async () => {
     expect(items.length).toBe(0);
 });
 
-test('it can get a single item', async () => {
+test('it can get a single item', async() => {
     await db.init();
     await db.storeItem(ITEM);
 
